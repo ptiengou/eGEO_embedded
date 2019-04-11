@@ -3,7 +3,7 @@ from sqlhandler import SQLHandler
 from sensorhandler import SensorHandler
 
 from datetime import datetime
-# import pandas as pd
+
 
 #dictionary to store data
 data_dict = {'timestamp_data':0.0,
@@ -20,8 +20,8 @@ data_dict = {'timestamp_data':0.0,
 #instanciating 3 types of handlers
 
 #sensor handler
-# sensor_hdlr = SensorHandler(dev_test = True)
-sensor_hdlr = SensorHandler(dev_test = False)
+sensor_hdlr = SensorHandler(dev_test = True)
+# sensor_hdlr = SensorHandler(dev_test = False)
 
 #sql handler
 sql_hdlr = SQLHandler('datalog.sqlite')
@@ -51,19 +51,25 @@ def do_things():
 	cloud_hdlr.send_data(data_dict)
 
 	#storing dict to sql database
-	sql_hdlr.insert_measurement(data_dict)
-
+	inserted = sql_hdlr.insert_measurement(data_dict)
+	print (inserted)
 
 #While loop to keep doing the things
 try:
 	while(True):
 		do_things()
-except:
+# except AssertionError as e:
+# 	print(e)
+# 	print('Program interrupted, you may want to check do_things function')
+# 	pass
+except :
 	print('Program interrupted, you may want to check do_things function')
 	pass
 
-# sql_hdlr.show_database()
 
+# import pandas as pd
+# df = pd.read_sql_query("SELECT * FROM smart_meter", sql_hdlr.con)
+# print(df.head(10))
 
 #closing mqtt connection to cloud
-# cloud_hdlr.shutdown()
+cloud_hdlr.shutdown()

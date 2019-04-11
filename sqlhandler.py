@@ -33,7 +33,7 @@ class SQLHandler:
 		"""
 		sql = '''CREATE TABLE IF NOT EXISTS {} (
 			timestamp_data    TEXT UNIQUE,
-		    active_powerA 	REAL,
+			active_powerA 	REAL,
 		    active_powerB 	REAL,
 		    active_powerC 	REAL,
 		    active_powerT 	REAL,
@@ -44,7 +44,19 @@ class SQLHandler:
 		    '''.format(database)
 
 		self.cur.execute(sql)
-		print("database has been created")
+		self.con.commit()
+		print("Database {} has been created from default setting".format(database))
+
+	def create_db_from_dict(self, ref_dict, database = 'smart_meter'):
+		"""
+		Function t create a database from the keys of a dictionary 
+		Made to make the code more general
+		The shape of the database can then be directly chosen in the main script
+		"""
+
+
+
+		print("Database {} has been created from the dictionary".format(database))
 
 	def swipe_clean_database(self, database = 'smart_meter'):
 		"""
@@ -61,6 +73,7 @@ class SQLHandler:
 		"""
 		sql =  'INSERT OR REPLACE INTO {}{} VALUES {}'.format(database, column, value)
 		self.cur.execute(sql)
+		self.con.commit()
 
 	def insert_measurement(self, data_dict, database = 'smart_meter'):
 		"""
@@ -111,23 +124,6 @@ print('SQLHandler imported')
 # sql_handler.create_database()
 
 # generate_measurements(sql_handler, 10)
-
-
-
-# # data_dict = {'timestamp_data':0.0,
-# # 			'active_powerA':0.0,
-# # 			'active_powerB':0.0,
-# # 			'active_powerC':0.0, 
-# # 			'active_powerT':0.0, 
-# # 			'reactive_powerA':0.0,
-# # 			'reactive_powerB':0.0,
-# # 			'reactive_powerC':0.0,
-# # 			'reactive_powerT':0.0
-# # 			}
-# # sql_handler.insert_measurement(data_dict)
-
-
-
 
 # import pandas as pd
 # df = pd.read_sql_query("SELECT * FROM smart_meter", sql_handler.con)
