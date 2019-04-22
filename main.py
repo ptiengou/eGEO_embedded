@@ -2,7 +2,7 @@ from cloudhandler import CloudHandler
 from sqlhandler import SQLHandler
 from sensorhandler import SensorHandler
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 #dictionary to store data
@@ -20,8 +20,8 @@ data_dict = {'timestamp_data':0.0,
 #instanciating 3 types of handlers
 
 #sensor handler
-sensor_hdlr = SensorHandler(dev_test = True)
-# sensor_hdlr = SensorHandler(dev_test = False)
+# sensor_hdlr = SensorHandler(dev_test = True)
+sensor_hdlr = SensorHandler(dev_test = False)
 
 #sql handler
 sql_hdlr = SQLHandler('datalog.sqlite')
@@ -37,7 +37,7 @@ def do_things():
 	sensor_data = sensor_hdlr.request_power()
 
 	#asigning new values to dict
-	data_dict['timestamp_data'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+	data_dict['timestamp_data'] = (datetime.now() - timedelta(hours = 5)).strftime('%Y-%m-%d %H:%M:%S') #offset in the clock of Omega for some reason...
 	data_dict['active_powerA'] = sensor_data['getPowerA']
 	data_dict['active_powerB'] = sensor_data['getPowerB']
 	data_dict['active_powerC'] = sensor_data['getPowerC']
