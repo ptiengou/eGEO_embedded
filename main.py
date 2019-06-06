@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 
 
 #dictionary to store data
+#note : for less hardcoded, those name could just be the commands we send to eGEO (like in sensorhandler)
+#this would simplify a lot the do_things() function as well
 data_dict = {'timestamp_data':0.0,
 			'active_powerA':0.0,
 			'active_powerB':0.0,
@@ -14,7 +16,15 @@ data_dict = {'timestamp_data':0.0,
 			'reactive_powerA':0.0,
 			'reactive_powerB':0.0,
 			'reactive_powerC':0.0,
-			'reactive_powerT':0.0
+			'reactive_powerT':0.0,
+			'active_fundamental_powerA' : 0.0,
+			'active_fundamental_powerB' : 0.0,
+			'active_fundamental_powerC' : 0.0,
+			'active_fundamental_powerT' : 0.0,
+			'active_harmonic_powerA' : 0.0,
+			'active_harmonic_powerB' : 0.0,
+			'active_harmonic_powerC' : 0.0,
+			'active_harmonic_powerT' : 0.0
 			}
 
 #instanciating 3 types of handlers
@@ -34,7 +44,8 @@ cloud_hdlr.connect()
 
 def do_things():
 	#collecting data from sensor
-	sensor_data = sensor_hdlr.request_power()
+	# sensor_data = sensor_hdlr.request_power()
+	sensor_data = sensor_hdlr.request_power2()
 
 	#asigning new values to dict
 	data_dict['timestamp_data'] = (datetime.now() - timedelta(hours = 5)).strftime('%Y-%m-%d %H:%M:%S') #offset in the clock of Omega for some reason...
@@ -46,6 +57,14 @@ def do_things():
 	data_dict['reactive_powerB'] = sensor_data['getQPowerB']
 	data_dict['reactive_powerC'] = sensor_data['getQPowerC']
 	data_dict['reactive_powerT'] = sensor_data['getQPowerT']
+	data_dict['active_fundamental_powerA'] = sensor_data['getPmeanAF']
+	data_dict['active_fundamental_powerB'] = sensor_data['getPmeanBF']
+	data_dict['active_fundamental_powerC'] = sensor_data['getPmeanCF']
+	data_dict['active_fundamental_powerT'] = sensor_data['getPmeanTF']
+	data_dict['active_harmonic_powerA'] = sensor_data['getPmeanAH']
+	data_dict['active_harmonic_powerB'] = sensor_data['getPmeanBH']
+	data_dict['active_harmonic_powerC'] = sensor_data['getPmeanCH']
+	data_dict['active_harmonic_powerT'] = sensor_data['getPmeanTH']
 
 	#sending dict to cloud
 	cloud_hdlr.send_data(data_dict)

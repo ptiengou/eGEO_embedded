@@ -28,6 +28,10 @@ class SensorHandler:
 		'getPmeanBH',
 		'getPmeanCH',
 		'getPmeanTH',
+		'getPmeanAF',
+		'getPmeanBF',
+		'getPmeanCF',
+		'getPmeanTF',
 		'getADAE',
 		'getBDAE',
 		'getCDAE',
@@ -119,6 +123,32 @@ class SensorHandler:
 				'getQPowerB':0.0,
 				'getQPowerC':0.0,
 				'getQPowerT':0.0
+				}
+
+		for key in data.keys():
+			data[key] = self.request_operation(key)
+		return(data)
+
+	def request_power2(self):
+		""" Docstring
+			function to return a dict containing active and reactive power measurements
+		"""
+		data = {'getPowerA':0.0,
+				'getPowerB':0.0,
+				'getPowerC':0.0, 
+				'getPowerT':0.0, 
+				'getQPowerA':0.0,
+				'getQPowerB':0.0,
+				'getQPowerC':0.0,
+				'getQPowerT':0.0,
+				'getPmeanAH':0.0,
+				'getPmeanBH':0.0,
+				'getPmeanCH':0.0,
+				'getPmeanTH':0.0,
+				'getPmeanAF':0.0,
+				'getPmeanBF':0.0,
+				'getPmeanCF':0.0,
+				'getPmeanTF':0.0
 				}
 
 		for key in data.keys():

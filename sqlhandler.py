@@ -15,7 +15,15 @@ class SQLHandler:
 			'reactive_powerA':0.0,
 			'reactive_powerB':0.0,
 			'reactive_powerC':0.0,
-			'reactive_powerT':0.0
+			'reactive_powerT':0.0,
+			'active_fundamental_powerA' : 0.0,
+			'active_fundamental_powerB' : 0.0,
+			'active_fundamental_powerC' : 0.0,
+			'active_fundamental_powerT' : 0.0,
+			'active_harmonic_powerA' : 0.0,
+			'active_harmonic_powerB' : 0.0,
+			'active_harmonic_powerC' : 0.0,
+			'active_harmonic_powerT' : 0.0
 			}
 
 	def __init__(self, filename):
@@ -40,7 +48,16 @@ class SQLHandler:
 		    reactive_powerA REAL,
 		    reactive_powerB REAL,
 		    reactive_powerC REAL,
-		    reactive_powerT REAL);
+		    reactive_powerT REAL,
+		    active_fundamental_powerA REAL,
+		    active_fundamental_powerB REAL,
+		    active_fundamental_powerC REAL,
+		    active_fundamental_powerT REAL,
+		    active_harmonic_powerA REAL,
+		    active_harmonic_powerB REAL,
+		    active_harmonic_powerC REAL,
+		    active_harmonic_powerT REAL
+		    );
 		    '''.format(database)
 
 		self.cur.execute(sql)

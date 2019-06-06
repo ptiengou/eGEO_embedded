@@ -21,6 +21,7 @@ class CloudHandler:
 		    self._client.connect(self._THINGSBOARD_HOST, port, keep_alive)
 		    print('Connected to Thingsboard')
 		except AssertionError as e:
+		# except:
 		    print("No connection")
 		    print(e)
 
@@ -60,9 +61,7 @@ def generate_data(cloud_hdlr):
 ##############
 print('CloudHandler imported')
 
-# #tb_host = 'https://demo.thingsboard.io'
 # tb_host = 'demo.thingsboard.io'
-
 # access_token = 'Xn7d8oJvxSpkPpBv30N0'
 # cloud_hdlr = CloudHandler(tb_host, access_token)
 # cloud_hdlr.connect()
