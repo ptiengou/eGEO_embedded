@@ -66,17 +66,20 @@ def do_things():
 	data_dict['active_harmonic_powerC'] = sensor_data['getPmeanCH']
 	data_dict['active_harmonic_powerT'] = sensor_data['getPmeanTH']
 
-	#sending dict to cloud
-	cloud_hdlr.send_data(data_dict)
-
 	#storing dict to sql database
 	inserted = sql_hdlr.insert_measurement(data_dict)
 	print (inserted)
+
 
 #While loop to keep doing the things
 try:
 	while(True):
 		do_things()
+		try:
+			#sending dict to cloud
+			cloud_hdlr.send_data(data_dict)
+		except:
+			pass
 # except AssertionError as e:
 # 	print(e)
 # 	print('Program interrupted, you may want to check do_things function')
