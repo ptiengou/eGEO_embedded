@@ -1,7 +1,9 @@
 # eGEO_embedded
-Code meant to be ran on eGEO smart meter
+This is the code I developped to use with an eGEO smart meter during my internship at EnergEIA in Colombia. 
+It is meant to grab measurements (voltage, current, active or reactive power, and more)from the smart meter, store them on the chip of the device (Omega Onion), and send them on a cloud server (hosted by ThingsBoard in my case).
+The code contains three modules, one for each of these functionalities, and a main.py script that is the one ran to collect data.
 
-List of Python modules necessary for the code
+List of Python modules necessary for the code:
 paho-mqtt
 json
 time
